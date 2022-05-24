@@ -1,0 +1,14 @@
+name: CI
+on:
+  - pull_request
+jobs:
+  addCheck:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    container: ubuntu:focal
+    steps:
+      - uses: LouisBrunner/checks-action@v1.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: e2e tests
+          status: pending

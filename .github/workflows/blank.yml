@@ -51,5 +51,5 @@ jobs:
           conclusion: success
           sha: ${{ steps.checkout.outputs.SHA }}
           output: |
-            {"summary":${{ steps.test.outputs.summary }}}
+            {"summary": "hello" }}}
 

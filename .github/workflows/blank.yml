@@ -3,7 +3,7 @@ on:
   issue_comment:
     types: [created]
 
-env: 
+env:  
   E2E_LABEL: ok-to-merge
 
 jobs:

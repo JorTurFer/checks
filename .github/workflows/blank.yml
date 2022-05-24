@@ -49,7 +49,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ steps.checkout.outputs.SHA }}
           name: Test XYZ
-          conclusion: success          
+          conclusion: failure          
           output: |
             {"summary": "hello" }
 

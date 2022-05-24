@@ -41,15 +41,15 @@ jobs:
           gh pr checkout ${{ needs.triage.outputs.pr_num }}          
           SHA=$(git log -n 1 --pretty=format:"%H")
           echo "Commit SHA: $SHA"
-          echo "::set-output name=pr_num::$SHA"
+          echo "::set-output name=SHA::$SHA"
 
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: Test XYZ
-          conclusion: success
           sha: ${{ steps.checkout.outputs.SHA }}
+          name: Test XYZ
+          conclusion: success          
           output: |
             {"summary": "hello" }
 

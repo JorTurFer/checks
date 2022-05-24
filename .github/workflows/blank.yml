@@ -48,8 +48,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ steps.checkout.outputs.SHA }}
-          name: Test XYZ
-          conclusion: failure          
-          output: |
-            {"summary": "hello" }
+          name: e2e tests
+          conclusion: failure
 

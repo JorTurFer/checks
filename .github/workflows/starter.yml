@@ -1,6 +1,12 @@
 name: CI
 on:
-  - pull_request_target
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 jobs:
   addCheck:
     name: Validate PR

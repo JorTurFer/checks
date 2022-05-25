@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Comment evaluate
     outputs:
-      run-e2e: ${{ startsWith(github.event.comment.body,'/run-e2e')
+      run-e2e: ${{ startsWith(github.event.comment.body,'/run-e2e') }}
       pr_num: ${{ steps.parser.outputs.pr_num }}
       image_tag: "pr-${{ steps.parser.outputs.pr_num }}-${{ steps.parser.outputs.commit_sha }}"
       commit_sha: ${{ steps.parser.outputs.commit_sha }}

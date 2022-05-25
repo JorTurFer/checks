@@ -11,4 +11,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: e2e tests
-          status: pending
+          status: queued

@@ -49,5 +49,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ steps.checkout.outputs.SHA }}
           name: e2e tests
-          conclusion: completed
+          conclusion: success
 

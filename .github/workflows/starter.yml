@@ -10,6 +10,14 @@ jobs:
       - uses: LouisBrunner/checks-action@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: e2e tests
           sha: ${{ github.event.pull_request.head.sha }}
+          name: e2e tests
           status: queued
+
+      - uses: LouisBrunner/checks-action@v1.1.1
+        if: contains(github.event.pull_request.labels.*.name, 'ok-to-merge')
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          name: e2e tests
+          conclusion: success

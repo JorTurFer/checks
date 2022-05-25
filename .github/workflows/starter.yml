@@ -1,17 +1,11 @@
-name: CI
+name: e2e-checker
 on:
-  pull_request_target:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - labeled
-      - unlabeled
+  - pull_request_target
+
 jobs:
-  addCheck:
-    name: Validate PR
+  e2e-checker:
+    name: e2e-checker
     runs-on: ubuntu-latest
-    container: ubuntu:focal
     steps:
       - uses: LouisBrunner/checks-action@v1.1.1
         with:
@@ -19,11 +13,3 @@ jobs:
           sha: ${{ github.event.pull_request.head.sha }}
           name: e2e tests
           status: queued
-
-      - uses: LouisBrunner/checks-action@v1.1.1
-        if: contains(github.event.pull_request.labels.*.name, 'ok-to-merge')
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sha: ${{ github.event.pull_request.head.sha }}
-          name: e2e tests
-          conclusion: success

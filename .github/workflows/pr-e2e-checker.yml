@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Enqueue e2e
-        if: ${{ !contains(github.event.pull_request_target.labels.*.name, env.SKIP_E2E_TAG )}}
+        if: ${{ contains(github.event.pull_request_target.labels.*.name, env.SKIP_E2E_TAG ) == false}}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request_target.head.sha }}

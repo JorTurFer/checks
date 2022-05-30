@@ -16,6 +16,7 @@ jobs:
     name: e2e-checker
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ github.event.pull_request.labels.*.name }}
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Enqueue e2e
         if: ${{ !contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG )}}

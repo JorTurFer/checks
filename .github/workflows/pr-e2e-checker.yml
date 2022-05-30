@@ -1,6 +1,12 @@
 name: e2e-checker
 on:
-  - pull_request_target
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 
 jobs:
   e2e-checker:

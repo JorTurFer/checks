@@ -59,11 +59,22 @@ jobs:
       
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Skip e2e
-        if:  ${{ contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG )}}
+        if:  ${{ contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG ) && steps.checker.outputs.result == 0 }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
-          check_id: ${{ steps.create.outputs.check_id + steps.checker.outputs.result }}
+          check_id: ${{ steps.create.outputs.check_id }}
+          conclusion: success
+          output: |
+            {"summary": "skipped by maintainer"}
+
+      - uses: LouisBrunner/checks-action@v1.1.1
+        name: Skip e2e
+        if:  ${{ contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG ) && steps.checker.outputs.result > 0 }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          check_id: ${{ steps.checker.outputs.result }}
           conclusion: success
           output: |
             {"summary": "skipped by maintainer"}

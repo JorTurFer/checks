@@ -24,7 +24,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: ${{ github.event.pull_request.head.sha }},
-              check_name: "e2e tests",
+              #check_name: "e2e tests",
             }).then(function(success) {
               console.log(success)
             })

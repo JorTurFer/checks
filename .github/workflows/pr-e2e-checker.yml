@@ -20,14 +20,17 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            let response = await github.rest.checks.listForRef({
+            github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: ${{ github.event.pull_request.head.sha }},
               check_name: '${{ env.E2E_CHECK_NAME }}',
-            });            
-            
-            console.log(response)
+            }).then(function(success) {
+              console.log(success)
+            })
+            .catch(function(error) {
+              console.log(error)
+            });
 
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Enqueue e2e

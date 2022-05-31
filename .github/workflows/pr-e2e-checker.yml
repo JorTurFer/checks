@@ -31,6 +31,14 @@ jobs:
             if (response.data.check_runs.length === 1){
               console.log("ID:")
               console.log(response.data.check_runs[0].id)
+              
+              octokit.rest.checks.rerequestRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: response.data.check_runs[0].id,
+              });
+
+              
               return response.data.check_runs[0].id
             }else {
               console.log(response)
@@ -46,17 +54,7 @@ jobs:
           sha: ${{ github.event.pull_request.head.sha }}
           name: ${{ env.E2E_CHECK_NAME }}
           status: queued
-      
-      - uses: LouisBrunner/checks-action@v1.1.1
-        name: Enqueue e2e
-        id: update
-        if: "${{ steps.checker.outputs.result > 0 }}"
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sha: ${{ github.event.pull_request.head.sha }}
-          check_id: ${{ steps.checker.outputs.result }}
-          status: queued
-      
+     
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Skip e2e
         if:  ${{ contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG ) && steps.checker.outputs.result == 0 }}

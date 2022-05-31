@@ -24,6 +24,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: '${{ github.event.pull_request.head.sha }}',
+              check_name: '${{ env.SKIP_E2E_TAG }}'
             });
             
             console.log(response)

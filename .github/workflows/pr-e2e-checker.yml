@@ -20,7 +20,7 @@ jobs:
         with:
           script: |
            let response=await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
-              owner: ${{ github.owner }},
+              owner: ${{ github.repository.owner }},
               repo: ${{ github.repository }},
               ref: ${{ github.event.pull_request.head.sha }},
             })

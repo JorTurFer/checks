@@ -20,7 +20,7 @@ jobs:
         with:
           script: |
             let response = github.rest.checks.listForRef({
-              ${{ github.repository_owner }},,
+              ${{ github.repository_owner }},
               ${{ github.repository }},
               ${{ github.event.pull_request.head.sha }},
             });

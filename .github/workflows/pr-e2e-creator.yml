@@ -2,8 +2,9 @@ name: e2e-checker
 on:
   pull_request_target:
     types:
-      - labeled
-      - unlabeled
+      - opened
+      - synchronize
+      - reopened
 
 env:
   SKIP_E2E_TAG: skip-e2e
@@ -25,7 +26,6 @@ jobs:
      
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Skip e2e
-        if:  ${{ contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG )}}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}

@@ -27,9 +27,9 @@ jobs:
               check_name: '${{ env.E2E_CHECK_NAME }}'
             });
             
-            if (response.check_runs.length === 1){
+            if (response.data.check_runs.length === 1){
               console.log("ID:")
-              console.log(response.check_runs[0].id)
+              console.log(response.data.check_runs[0].id)
             }else {
               console.log(response)
             }

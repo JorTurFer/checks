@@ -21,7 +21,7 @@ jobs:
           script: |
             let response = await github.rest.checks.listForRef({
               owner: ${{ github.repository_owner }},
-              repo: ${{ github.repository }},
+              repo: ${{ github.event.repository.name }},
               ref: ${{ github.event.pull_request.head.sha }},
             });
 

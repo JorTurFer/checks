@@ -19,9 +19,10 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
+            console.log(context)
             github.rest.checks.listSuitesForRef({
               owner: context.repo.owner,
-              name: context.repo.repo,
+              name: context.repo.name,
               ref: context.sha,
             });
 

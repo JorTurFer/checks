@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
+        id: checker
         with:
           script: |
             let response = await github.rest.checks.listForRef({
@@ -30,17 +31,30 @@ jobs:
             if (response.data.check_runs.length === 1){
               console.log("ID:")
               console.log(response.data.check_runs[0].id)
+              return response.data.check_runs[0].id
             }else {
               console.log(response)
+              return 0
             }
 
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Enqueue e2e
-        #if: ${{ !contains(github.event.pull_request.labels.*.name, env.SKIP_E2E_TAG )}}
+        id: create
+        if: "${{ steps.checker.outputs.result == 0 }}"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
           name: ${{ env.E2E_CHECK_NAME }}
+          status: queued
+      
+      - uses: LouisBrunner/checks-action@v1.1.1
+        name: Enqueue e2e
+        id: update
+        if: "${{ steps.checker.outputs.result > 0 }}"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          check_id: ${{ steps.checker.outputs.result }}
           status: queued
       
       - uses: LouisBrunner/checks-action@v1.1.1
@@ -49,7 +63,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
-          name: ${{ env.E2E_CHECK_NAME }} 
+          check_id: ${{ steps.create.outputs.check_id + steps.checker.outputs.result }}
           conclusion: success
           output: |
             {"summary": "skipped by maintainer"}

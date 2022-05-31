@@ -11,8 +11,8 @@ env:
   E2E_CHECK_NAME: e2e tests
 
 jobs:
-  e2e-checker:
-    name: e2e-checker
+  check-creator:
+    name: e2e-tests
     runs-on: ubuntu-latest
     steps:
       - uses: LouisBrunner/checks-action@v1.1.1

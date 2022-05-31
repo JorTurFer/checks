@@ -11,7 +11,7 @@ env:
 
 jobs:
   e2e-checker:
-    name: e2e-checker
+    name: label checker
     runs-on: ubuntu-latest
     steps:
       - uses: LouisBrunner/checks-action@v1.1.1

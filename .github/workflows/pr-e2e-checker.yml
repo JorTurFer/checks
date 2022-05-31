@@ -23,7 +23,7 @@ jobs:
             let response = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: ${{ github.event.pull_request.head.sha }},
+              ref: '${{ github.event.pull_request.head.sha }}',
             });
             
             console.log(response)

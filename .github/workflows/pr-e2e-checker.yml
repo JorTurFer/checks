@@ -19,10 +19,10 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            let response = github.rest.checks.listForRef({
-              ${{ github.repository_owner }},
-              ${{ github.repository }},
-              ${{ github.event.pull_request.head.sha }},
+            let response = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: ${{ github.event.pull_request.head.sha }},
             });
 
             console.log(response)

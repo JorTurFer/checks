@@ -12,7 +12,7 @@ env:
 
 jobs:
   check-creator:
-    name: e2e-tests
+    name: check-creator
     runs-on: ubuntu-latest
     steps:
       - uses: LouisBrunner/checks-action@v1.1.1

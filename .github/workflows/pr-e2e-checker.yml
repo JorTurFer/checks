@@ -10,6 +10,7 @@ on:
 
 env:
   SKIP_E2E_TAG: skip-e2e
+  E2E_CHECK_NAME: e2e tests
 
 jobs:
   e2e-checker:
@@ -23,6 +24,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.sha,
+              check_name: ${{ env.E2E_CHECK_NAME )}}
             });
 
             console.log(response)
@@ -33,7 +35,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
-          name: e2e tests
+          name: ${{ env.E2E_CHECK_NAME )}}
           status: queued
       
       - uses: LouisBrunner/checks-action@v1.1.1
@@ -42,7 +44,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
-          name: e2e tests
+          name: ${{ env.E2E_CHECK_NAME )}} 
           conclusion: success
           output: |
             {"summary": "skipped by maintainer"}

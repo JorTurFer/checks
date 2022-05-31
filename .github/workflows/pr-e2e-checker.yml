@@ -19,12 +19,13 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-           let response=await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
-              owner: ${{ github.repository_owner }},
-              repo: ${{ github.repository }},
-              ref: ${{ github.event.pull_request.head.sha }},
-            })
-           console.log(response)
+            let response = github.rest.checks.listForRef({
+              ${{ github.repository_owner }},,
+              ${{ github.repository }},
+              ${{ github.event.pull_request.head.sha }},
+            });
+
+            console.log(response)
 
       - uses: LouisBrunner/checks-action@v1.1.1
         name: Enqueue e2e

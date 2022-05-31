@@ -32,7 +32,7 @@ jobs:
               console.log("ID:")
               console.log(response.data.check_runs[0].id)
               
-              octokit.rest.checks.rerequestRun({
+              await github.rest.checks.rerequestRun({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 check_run_id: response.data.check_runs[0].id,

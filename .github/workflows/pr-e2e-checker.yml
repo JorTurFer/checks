@@ -20,9 +20,9 @@ jobs:
         with:
           script: |
             let response = await github.rest.checks.listForRef({
-              owner: ${{ github.repository_owner }},
-              repo: ${{ github.event.repository.name }},
-              ref: ${{ github.event.pull_request.head.sha }},
+              ${{ github.repository_owner }},
+              ${{ github.event.repository.name }},
+              ${{ github.event.pull_request.head.sha }},
             });
 
             console.log(response)
